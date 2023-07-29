@@ -1,7 +1,9 @@
 "use client";
 
-import { api } from "@/lib/api";
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation'
+
+import { api } from "@/lib/api";
 
 interface Album {
   id: number;
@@ -23,6 +25,8 @@ export function AddTrack() {
   const [number, setNumber] = useState("");
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
+
+  const router = useRouter()
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -76,6 +80,8 @@ export function AddTrack() {
       if (response.ok) {
         alert("Faixa adicionada com sucesso!");
         // Aqui você pode redirecionar para outra página ou realizar outras ações após o sucesso
+        router.push("/")
+        
       } else {
         alert("Erro ao adicionar faixa.");
       }

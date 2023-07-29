@@ -11,8 +11,8 @@ export default async function Home() {
       <div className="absolute inset-0">
         <Image src={ImageBackground} alt="background image" fill />
       </div>
-      <div className="relative z-10 flex flex-col items-center justify-center h-full">
-        <div className="p-5">
+      <div className="relative z-1 flex flex-col items-center justify-center h-full">
+        <div className="p-5 w-full md:w-4/5">
           {/* Componente Header */}
           <div className="flex justify-between items-center bg-white p-5">
             {/* Logo no canto esquerdo */}

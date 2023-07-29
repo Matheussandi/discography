@@ -4,7 +4,7 @@ import ImageBackground from "../assets/background.png";
 import Logo from "../assets/logo.png";
 
 import { getAlbums } from "@/services/get-albums";
-import { ListAlbum } from "@/components/ListAlbum";
+import  ListAlbum  from "@/components/ListAlbum";
 
 interface AlbumProps {
   id: number;

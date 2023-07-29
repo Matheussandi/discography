@@ -1,11 +1,10 @@
+import { AddAlbum } from "@/components/AddAlbum";
+import ImageBackground from "../../assets/background.png";
+import Logo from "../../assets/logo.png";
+
 import Image from "next/image";
 
-import ImageBackground from "../assets/background.png";
-import Logo from "../assets/logo.png";
-
-import ListAlbum from "@/components/ListAlbum";
-
-export default async function Home() {
+export default function Album() {
   return (
     <div className="relative h-screen">
       <div className="absolute inset-0">
@@ -24,8 +23,10 @@ export default async function Home() {
             <span className="text-4xl font-bold">Discografia</span>
           </div>
 
-          {/* Listagem dos Álbuns */}
-          <ListAlbum />
+          {/* Adicionar Álbum */}
+          <div className="bg-white bg-opacity-80 px-5 py-2">
+            <AddAlbum />
+          </div>
         </div>
       </div>
     </div>

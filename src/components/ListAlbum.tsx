@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { api } from "@/lib/api";
 
 import { FiSearch } from "react-icons/fi";
+import Link from "next/link";
 
 interface AlbumProps {
   id: number;
@@ -26,7 +27,7 @@ interface AlbumsProps {
 
 export default function ListAlbum() {
   const [albums, setAlbums] = useState<AlbumProps[]>([]);
-  const [albumsSearch, setAlbumsSearch] = useState('');
+  const [albumsSearch, setAlbumsSearch] = useState("");
 
   // Função para buscar álbuns com base na string de busca
   const handleSearchAlbums = useCallback(async () => {
@@ -45,7 +46,7 @@ export default function ListAlbum() {
 
       setAlbums(filteredAlbums);
     } catch (error) {
-      console.error('Erro ao buscar álbuns:', error);
+      console.error("Erro ao buscar álbuns:", error);
     }
   }, [albumsSearch]);
 
@@ -59,7 +60,7 @@ export default function ListAlbum() {
       });
       setAlbums(response.data.data);
     } catch (error) {
-      console.error('Erro ao carregar lista de álbuns:', error);
+      console.error("Erro ao carregar lista de álbuns:", error);
     }
   }, []);
 
@@ -94,6 +95,15 @@ export default function ListAlbum() {
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                 <FiSearch color="#0079FF" size={20} />
               </div>
+            </div>
+
+            <div className="flex justify-around mt-5 space-x-2 text-white">
+              <Link href={"/album"} className="bg-blue-500 p-4 rounded">
+                Adicionar Album
+              </Link>
+              <Link href={"/track"} className="bg-blue-500 p-4 rounded">
+                Adicionar Faixa
+              </Link>
             </div>
           </div>
         </div>

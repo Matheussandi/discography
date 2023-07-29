@@ -3,7 +3,7 @@ import Image from "next/image";
 import ImageBackground from "../assets/background.png";
 import Logo from "../assets/logo.png";
 
-import ListAlbum from "@/components/ListAlbum";
+import { AlbumList } from "@/components/AlbumList";
 
 export default async function Home() {
   return (
@@ -25,7 +25,7 @@ export default async function Home() {
           </div>
 
           {/* Listagem dos Álbuns */}
-          <ListAlbum />
+          <AlbumList />
         </div>
       </div>
     </div>

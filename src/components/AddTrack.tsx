@@ -1,32 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 import { api } from "@/lib/api";
 
-interface Album {
-  id: number;
-  name: string;
-  year: number;
-  tracks: Track[];
-}
-
-interface Track {
-  id: number;
-  number: number;
-  title: string;
-  duration: number;
-}
+import { AlbumProps } from "@/types";
 
 export function AddTrack() {
-  const [albums, setAlbums] = useState<Album[]>([]);
+  const [albums, setAlbums] = useState<AlbumProps[]>([]);
   const [albumId, setAlbumId] = useState("");
   const [number, setNumber] = useState("");
   const [title, setTitle] = useState("");
   const [duration, setDuration] = useState("");
 
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAlbums = async () => {
@@ -63,25 +51,17 @@ export function AddTrack() {
       duration: parseInt(duration),
     };
 
-    // Substitua '<token>' pelo seu token de autenticação
     const token = "matheussandi@hotmail.com";
-    const url = "https://tiao.supliu.com.br/api/track";
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
+      const response = await api.post("/track", data, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: token,
         },
-        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        alert("Faixa adicionada com sucesso!");
-        // Aqui você pode redirecionar para outra página ou realizar outras ações após o sucesso
-        router.push("/")
-        
+      if (response.status === 200) {
+        router.push("/");
       } else {
         alert("Erro ao adicionar faixa.");
       }
@@ -155,13 +135,13 @@ export function AddTrack() {
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="duration"
         >
-          Duração (segundos)
+          Duração
         </label>
         <input
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="duration"
           type="number"
-          placeholder="Duração da faixa (segundos)"
+          placeholder="Duração da faixa"
           value={duration}
           onChange={(e) => setDuration(e.target.value)}
           required
@@ -170,9 +150,9 @@ export function AddTrack() {
       <div className="flex items-center justify-center">
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
-          Adicionar Faixa
+          Adicionar
         </button>
       </div>
     </form>

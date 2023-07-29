@@ -1,32 +1,29 @@
 "use client";
 
-import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface AlbumData {
-  name: string;
-  year: string;
-}
+import { api } from "@/lib/api";
 
 export function AddAlbum() {
   const [name, setName] = useState("");
   const [year, setYear] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [jsonSent, setJsonSent] = useState<AlbumData | null>(null);
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Create an object with album data
+    // Cria um objeto com dados do álbum
     const albumData = {
       name,
       year,
     };
 
     try {
-      const token = "matheussandi@hotmail.com"; // Substitua pelo token de acesso válido
+      const token = "matheussandi@hotmail.com";
 
-      // Send data to the desired route using the POST method
+      // Envia dados para a rota desejada usando o método POST
       const response = await api.post("/album", albumData, {
         headers: {
           Authorization: `${token}`,
@@ -34,16 +31,13 @@ export function AddAlbum() {
       });
 
       if (response.status === 200) {
-        // Data sent successfully (200 OK status)
-        console.log("Data sent successfully!");
-        setJsonSent(albumData);
-        setSubmitted(true);
+        router.push("/");
       } else {
-        // Handle sending error
-        console.error("Error while sending data.");
+        // Lida com erro de envio
+        console.error("Erro ao enviar dados.");
       }
     } catch (error) {
-      console.error("Request error:", error);
+      console.error("Erro de solicitação:", error);
     }
   };
 
@@ -86,19 +80,11 @@ export function AddAlbum() {
         </div>
         <button
           type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 focus:outline-none"
+          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none"
         >
-          Cadastrar
+          Adicionar
         </button>
       </form>
-
-      {/* Show the sent data */}
-      {submitted && (
-        <div className="mt-4 bg-gray-100 p-4 rounded-lg">
-          <h2 className="text-lg font-semibold mb-2">Sent Data:</h2>
-          <pre>{JSON.stringify(jsonSent, null, 2)}</pre>
-        </div>
-      )}
     </>
   );
 }

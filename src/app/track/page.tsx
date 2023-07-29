@@ -1,8 +1,9 @@
-import { AddAlbum } from "@/components/AddAlbum";
+import Image from "next/image";
+import Link from "next/link";
+
 import ImageBackground from "../../assets/background.png";
 import Logo from "../../assets/logo.png";
 
-import Image from "next/image";
 import { AddTrack } from "@/components/AddTrack";
 
 export default function Track() {
@@ -13,18 +14,13 @@ export default function Track() {
       </div>
       <div className="relative z-10 flex flex-col items-center justify-center h-full">
         <div className="p-5">
-          {/* Componente Header */}
-          <div className="flex justify-between items-center bg-white p-5">
-            {/* Logo no canto esquerdo */}
-            <div className="flex items-center">
-              <Image src={Logo} alt="Logo" width={100} height={100} />
-            </div>
+          <Link
+            href="/"
+            className="flex justify-center items-center bg-white p-5"
+          >
+            <Image src={Logo} alt="Logo" width={100} height={100} />
+          </Link>
 
-            {/* Texto no canto direito */}
-            <span className="text-4xl font-bold">Discografia</span>
-          </div>
-
-          {/* Adicionar Álbum */}
           <div className="bg-white bg-opacity-80 px-5 py-2">
             <AddTrack />
           </div>

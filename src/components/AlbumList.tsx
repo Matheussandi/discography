@@ -1,34 +1,20 @@
 "use client";
 
-import { formatDurationToMinutes } from "@/utils/formatDurationToMinutes";
 import { useCallback, useEffect, useState } from "react";
+
+import { formatDurationToMinutes } from "@/utils/formatDurationToMinutes";
 import { api } from "@/lib/api";
 
-import { FiSearch } from "react-icons/fi";
-import { MdDelete, MdSearch } from "react-icons/md";
+import { MdDelete, MdSearch, MdClose } from "react-icons/md";
 
 import Link from "next/link";
 
 import { ConfirmationModal } from "./ConfirmationModal";
+import { AlbumProps } from "@/types";
 
-interface AlbumProps {
-  id: number;
-  name: string;
-  year: number;
-  tracks: Track[];
-}
-
-interface Track {
-  id: number;
-  number: number;
-  title: string;
-  duration: number;
-}
-
-export default function ListAlbum() {
+export function AlbumList() {
   const [albums, setAlbums] = useState<AlbumProps[]>([]);
   const [albumsSearch, setAlbumsSearch] = useState("");
-
   const [showModal, setShowModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState<{
     type: "album" | "track";
@@ -200,7 +186,7 @@ export default function ListAlbum() {
                   {/* Ícone de remoção do álbum */}
                   <MdDelete
                     color="red"
-                    size={20}
+                    size={26}
                     onClick={() => openModal("album", album.id, album.name)} // Passa o nome do álbum para o modal
                     className="cursor-pointer"
                   />
@@ -219,9 +205,9 @@ export default function ListAlbum() {
                       <span>{formatDurationToMinutes(track.duration)}</span>
                       <span>
                         {/* Ícone de remoção da faixa */}
-                        <MdDelete
+                        <MdClose
                           color="red"
-                          size={20}
+                          size={26}
                           onClick={() =>
                             openModal("track", track.id, track.title)
                           } // Passa o nome da faixa para o modal

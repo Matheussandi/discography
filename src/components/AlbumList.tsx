@@ -125,10 +125,9 @@ export function AlbumList() {
     }
   }, [handleRemoveAlbum, handleRemoveTrack, itemToRemove]);
 
-  // Função para abrir o modal de confirmação
   const openModal = (type: "album" | "track", id: number, name: string) => {
     setItemToRemove({ type, id });
-    setItemName(name); // Armazena o nome do álbum ou faixa a ser excluído
+    setItemName(name);
     setShowModal(true);
   };
 
@@ -183,34 +182,34 @@ export function AlbumList() {
                   <strong>
                     Álbum: {album.name}, {album.year}
                   </strong>
-                  {/* Ícone de remoção do álbum */}
                   <MdDelete
                     color="red"
                     size={26}
-                    onClick={() => openModal("album", album.id, album.name)} // Passa o nome do álbum para o modal
+                    onClick={() => openModal("album", album.id, album.name)}
                     className="cursor-pointer"
                   />
                 </div>
-                <ul className="mt-2">
-                  <li className="flex justify-between">
-                    <span>N°</span>
-                    <span>Faixa</span>
-                    <span>Duração</span>
-                    <span>Remover</span>
+                <ul className="mt-2 w-full">
+                  <li className="flex justify-betwee">
+                    <span className="w-1/4">N°</span>
+                    <span className="w-1/4">Faixa</span>
+                    <span className="w-1/4">Duração</span>
+                    <span className="w-1/4">Remover</span>
                   </li>
                   {album.tracks.map((track) => (
                     <li key={track.id} className="flex justify-between">
-                      <span>{track.number}</span>
-                      <span>{track.title}</span>
-                      <span>{formatDurationToMinutes(track.duration)}</span>
-                      <span>
-                        {/* Ícone de remoção da faixa */}
+                      <span className="w-1/4">{track.number}</span>
+                      <span className="w-1/4">{track.title}</span>
+                      <span className="w-1/4">
+                        {formatDurationToMinutes(track.duration)}
+                      </span>
+                      <span className="w-1/4">
                         <MdClose
                           color="red"
                           size={26}
                           onClick={() =>
                             openModal("track", track.id, track.title)
-                          } // Passa o nome da faixa para o modal
+                          }
                           className="cursor-pointer"
                         />
                       </span>
@@ -222,7 +221,6 @@ export function AlbumList() {
           )}
         </div>
       </div>
-      {/* Modal de confirmação */}
       <ConfirmationModal
         isOpen={showModal}
         onClose={closeModal}

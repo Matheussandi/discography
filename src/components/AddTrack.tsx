@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
 
 import { AlbumProps } from "@/types";
+import { formatDurationToMinutes } from "@/utils/formatDurationToMinutes";
+import Link from "next/link";
 
 export function AddTrack() {
   const [albums, setAlbums] = useState<AlbumProps[]>([]);
@@ -26,7 +28,7 @@ export function AddTrack() {
         });
 
         if (response.status === 200) {
-          setAlbums(response.data.data); // Armazena os álbuns no estado 'albums'
+          setAlbums(response.data.data);
         } else {
           alert("Erro ao buscar álbuns.");
         }
@@ -146,11 +148,24 @@ export function AddTrack() {
           onChange={(e) => setDuration(e.target.value)}
           required
         />
+        <div className="flex text-center justify-center mt-2">
+          {duration ? (
+            <p>{formatDurationToMinutes(parseInt(duration))} minutos</p>
+          ) : (
+            <p>0:00 minutos</p>
+          )}
+        </div>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center gap-2">
+        <Link
+          href="/"
+          className="w-1/2 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none flex items-center justify-center"
+        >
+          Cancelar
+        </Link>
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="w-1/2 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none"
         >
           Adicionar
         </button>

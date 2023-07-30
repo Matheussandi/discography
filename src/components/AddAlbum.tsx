@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { api } from "@/lib/api";
+import Link from "next/link";
 
 export function AddAlbum() {
   const [name, setName] = useState("");
@@ -14,7 +15,6 @@ export function AddAlbum() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Cria um objeto com dados do álbum
     const albumData = {
       name,
       year,
@@ -23,17 +23,15 @@ export function AddAlbum() {
     try {
       const token = "matheussandi@hotmail.com";
 
-      // Envia dados para a rota desejada usando o método POST
       const response = await api.post("/album", albumData, {
         headers: {
-          Authorization: `${token}`,
+          Authorization: token,
         },
       });
 
       if (response.status === 200) {
         router.push("/");
       } else {
-        // Lida com erro de envio
         console.error("Erro ao enviar dados.");
       }
     } catch (error) {
@@ -78,12 +76,20 @@ export function AddAlbum() {
             required
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none"
-        >
-          Adicionar
-        </button>
+        <div className="flex justify-around gap-2">
+          <Link
+            href="/"
+            className="w-1/2 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-500 focus:outline-none flex items-center justify-center"
+          >
+            Cancelar
+          </Link>
+          <button
+            type="submit"
+            className="w-1/2 px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none"
+          >
+            Adicionar
+          </button>
+        </div>
       </form>
     </>
   );

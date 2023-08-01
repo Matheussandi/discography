@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { formatDurationToMinutes } from "@/utils/formatDurationToMinutes";
 import { api } from "@/lib/api";
 
-import { MdDelete, MdSearch, MdClose } from "react-icons/md";
+import { MdDelete, MdClose } from "react-icons/md";
 
 import Link from "next/link";
 
@@ -22,7 +22,6 @@ export function AlbumList() {
   } | null>(null);
   const [itemName, setItemName] = useState<string>("");
 
-  // Função para buscar álbuns com base na string de busca
   const handleSearchAlbums = useCallback(async () => {
     try {
       const response = await api.get(`/album`, {
@@ -32,7 +31,6 @@ export function AlbumList() {
       });
       const albumSearch = albumsSearch.toLocaleLowerCase();
 
-      // Filtra os álbuns que contêm o valor da variável albumSearch no nome
       const filteredAlbums = response.data.data.filter(({ name }: AlbumProps) =>
         name.toLocaleLowerCase().includes(albumSearch)
       );
@@ -43,7 +41,6 @@ export function AlbumList() {
     }
   }, [albumsSearch]);
 
-  // Função para carregar a lista inicial de álbuns
   const handleAlbumsListDefault = useCallback(async () => {
     try {
       const response = await api.get(`/album`, {
@@ -57,17 +54,14 @@ export function AlbumList() {
     }
   }, []);
 
-  // Função para remover um álbum
   const handleRemoveAlbum = useCallback(async (albumIdToRemove: number) => {
     try {
-      // Realize a chamada à API para remover o álbum com o ID albumIdToRemove
       await api.delete(`/album/${albumIdToRemove}`, {
         headers: {
           Authorization: `matheussandi@hotmail.com`,
         },
       });
 
-      // Atualize a lista de álbuns após a remoção
       setAlbums((prevAlbums) =>
         prevAlbums.filter((album) => album.id !== albumIdToRemove)
       );
@@ -76,17 +70,14 @@ export function AlbumList() {
     }
   }, []);
 
-  // Função para remover uma faixa
   const handleRemoveTrack = useCallback(async (trackIdToRemove: number) => {
     try {
-      // Realize a chamada à API para remover a faixa com o ID trackIdToRemove
       await api.delete(`/track/${trackIdToRemove}`, {
         headers: {
           Authorization: `matheussandi@hotmail.com`,
         },
       });
 
-      // Atualize a lista de faixas após a remoção
       setAlbums((prevAlbums) =>
         prevAlbums.map((album) => ({
           ...album,
@@ -98,21 +89,10 @@ export function AlbumList() {
     }
   }, []);
 
-  // Efeito colateral que é executado quando a string de busca ou as funções de busca/carregamento mudam
   useEffect(() => {
-    // Verifica se a busca será realizada (se a string tiver mais de 2 caracteres)
-    const isSearch = albumsSearch.length >= 2;
-
-    if (isSearch) {
-      // Se a busca será realizada, chama a função de busca de álbuns
-      handleSearchAlbums();
-    } else {
-      // Caso contrário, carrega a lista padrão de álbuns
-      handleAlbumsListDefault();
-    }
+    handleAlbumsListDefault();
   }, [albumsSearch, handleAlbumsListDefault, handleSearchAlbums]);
 
-  // Função para remover o álbum ou faixa após a confirmação
   const handleConfirmRemoval = useCallback(async () => {
     if (itemToRemove) {
       if (itemToRemove.type === "album") {
@@ -141,30 +121,33 @@ export function AlbumList() {
       <div className="rounded">
         <div className="mb-4 flex items-center justify-between">
           <div className="w-full">
-            <p className="mb-2 text-gray-500">Digite uma palavra chave</p>
-            <div className="relative">
+            <p className="text-gray-500 mb-1">Digite uma palavra chave</p>
+            <div className="relative flex">
               <input
                 type="text"
-                placeholder="Buscar álbum"
+                placeholder="Min"
                 value={albumsSearch}
                 onChange={(e) => setAlbumsSearch(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 p-2 pr-8 focus:border-primary focus:outline-none"
+                className="w-full rounded-full border-none py-2 px-4 focus:border-primary focus:outline-none"
               />
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600">
-                <MdSearch size={26} />
-              </div>
+              <button
+                className="mx-2 bg-blue-600 text-white px-12 py-3 rounded-full"
+                onClick={handleSearchAlbums}
+              >
+                Procurar
+              </button>
             </div>
 
             <div className="flex justify-around mt-5 text-white">
               <Link
                 href={"/album"}
-                className="bg-blue-600 p-4 rounded hover:bg-blue-500 transition ease-in-out"
+                className="bg-blue-600 p-4 rounded-full hover:bg-blue-500 transition ease-in-out"
               >
                 Adicionar Álbum
               </Link>
               <Link
                 href={"/track"}
-                className="bg-blue-600 p-4 rounded hover:bg-blue-500 transition ease-in-out"
+                className="bg-blue-600 p-4 rounded-full hover:bg-blue-500 transition ease-in-out"
               >
                 Adicionar Faixa
               </Link>

@@ -2,13 +2,7 @@
 
 <p align="justify">Gerencie a discografia da dupla caipira Tião Carreiro e Pardinho.</p>
 
-## <p align="center">Adicionar</p>
-
-![Adicionar](https://github.com/Matheussandi/discography/assets/29473781/a380bafa-7495-475e-8f22-3dc545b6a9d5)
-
-## <p align="center">Procurar e remover</p>
-
-![Procurar e remover](https://github.com/Matheussandi/discography/assets/29473781/041f0219-b934-4551-9b5d-3c9bed85cf52)
+https://github.com/Matheussandi/discography/assets/29473781/0c8543e5-d9b8-4cda-97c2-c76adbbfdbdd
 
 ## :pushpin: Recursos
 
@@ -31,7 +25,7 @@
 ### Clone o repositório
 
 ```bash
-git@github.com:Matheussandi/discography.git
+git clone git@github.com:Matheussandi/discography.git
 ```
 
 ### Entre na pasta do projeto

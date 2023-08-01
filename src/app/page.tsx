@@ -15,10 +15,10 @@ export default async function Home() {
         <div className="p-5 w-full md:w-4/5">
           <div className="flex justify-between items-center bg-white p-5">
             <div className="flex items-center">
-              <Image src={Logo} alt="Logo" width={100} height={100} />
+              <Image src={Logo} alt="Logo" width={150} height={150} />
             </div>
 
-            <span className="text-4xl font-bold">Discografia</span>
+            <span className="text-4xl text-gray-500">Discografia</span>
           </div>
 
           <AlbumList />
